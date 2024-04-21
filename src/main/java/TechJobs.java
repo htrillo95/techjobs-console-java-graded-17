@@ -8,11 +8,11 @@ import java.util.Scanner;
  */
 public class TechJobs {
 
-    static Scanner in = new Scanner(System.in);
+    static Scanner in = new Scanner(System.in); //scanner for user input
 
     public static void main (String[] args) {
 
-        // Initialize our field map with key/name pairs
+        // Initialize our field map with key/ pairs
         HashMap<String, String> columnChoices = new HashMap<>();
         columnChoices.put("core competency", "Skill");
         columnChoices.put("employer", "Employer");
@@ -117,9 +117,20 @@ public class TechJobs {
         return choiceKeys[choiceIdx];
     }
 
-    // Print a list of jobs
-    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+    // TASK 1: Print a list of jobs - (DO FIRST) - 2 FOR LOOPS (1 ARRAYLIST, 1 HASHMAP)
+    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) { //checks if list is empty
+        if (someJobs.isEmpty()) {
+            System.out.print("No Results"); //if empty
+        } else {
+            for (HashMap<String,String> job : someJobs) { //continues iterating
+                System.out.println("\n*****"); //iterates over each job & prints
+                for (Map.Entry<String, String> entry : job.entrySet()) { //continues & prints attributes KV pair
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
+                }
+                System.out.println("*****");
+            }
+        }
 
-        System.out.println("printJobs is not implemented yet");
+        //System.out.println("printJobs is not implemented yet");
     }
 }

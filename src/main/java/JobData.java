@@ -5,6 +5,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -75,11 +76,12 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
-                jobs.add(row);
+            //TASK 3: CASE INSENSITIVITY - PART 1
+            //checks if value contains terms
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
+                jobs.add(row); //adds to list if so
             }
         }
-
         return jobs;
     }
 
@@ -89,13 +91,31 @@ public class JobData {
      * @param value The search term to look for
      * @return      List of all jobs with at least one field containing the value
      */
-    public static ArrayList<HashMap<String, String>> findByValue(String value) {
 
+    //TASK 2 STARTS HERE!! SEARCH COLUMNS FOR TERM
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
         // load data, if not already loaded
         loadData();
+                    // TODO - implement this method
+        //initialize Arraylist storing matching jobs
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        for (HashMap<String, String> row : allJobs) { //iterates over rows
+            for (String key : row.keySet()) { //iterates over key
+                String aValue = row.get(key); //gets value from key
 
-        // TODO - implement this method
-        return null;
+
+                    //TASK 3: CHECK CASE INSENSITIVE-PART 2
+                if (aValue.toLowerCase().contains(value.toLowerCase())) {
+                    if (!jobs.contains(row)) {
+                        jobs.add(row);
+                    }
+
+                    break; //stops when match found
+                }
+            }
+        }
+
+        return jobs; //instead of null, Return the list of matching jobs
     }
 
     /**
